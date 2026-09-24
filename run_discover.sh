@@ -1,0 +1,1 @@
+python3 -m cua_system.cli discover --goal "look up member 12345, open a new youth_savings sub-account with a 50 dollar initial deposit, and reach the confirmation screen" --entry-url "http://localhost:5050/" --out artifacts/open_subaccount_discovered.json --artifact-id open_subaccount_discovered --name "Open New Sub-Account (discovered)"

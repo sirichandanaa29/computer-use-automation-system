@@ -1,0 +1,2 @@
+{"ts": "2026-09-22T03:19:10.013318+00:00", "run_id": "f8f858a0", "event": "discovery_start", "goal": "look up member 12345, open a new youth_savings sub-account with a 50 dollar initial deposit, and reach the confirmation screen", "entry_url": "http://localhost:5000/"}
+{"ts": "2026-09-22T03:19:14.246428+00:00", "run_id": "f8f858a0", "event": "model_decision", "step_id": "s1", "decision": {"action": "navigate", "url": "http://localhost:3000", "rationale": "Start by navigating to the application home page to begin the workflow."}}

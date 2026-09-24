@@ -1,0 +1,1 @@
+{"ts": "2026-09-20T16:31:07.380881+00:00", "run_id": "5e7965a5", "event": "discovery_start", "goal": "look up member 12345, open a new youth_savings sub-account with a 50 dollar initial deposit, and reach the confirmation screen", "entry_url": "http://localhost:5000/"}

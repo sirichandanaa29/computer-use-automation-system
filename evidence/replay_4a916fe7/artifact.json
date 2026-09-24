@@ -1,0 +1,230 @@
+{
+  "artifact_id": "open_subaccount_discovered",
+  "name": "Confirmation",
+  "version": 1,
+  "description": "Discovered capability for goal: look up member 12345, open a new youth_savings sub-account with a 50 dollar initial deposit, and reach the confirmation screen",
+  "created_at": "2026-09-23T03:32:28.539308+00:00",
+  "discovery_goal": "look up member 12345, open a new youth_savings sub-account with a 50 dollar initial deposit, and reach the confirmation screen",
+  "target_app": "core_banking_console",
+  "target_entry_url": "http://localhost:5050/",
+  "inputs": [],
+  "outputs": [],
+  "steps": [
+    {
+      "step_id": "s1",
+      "action": "fill",
+      "target": {
+        "description": "textbox ''",
+        "candidates": [
+          {
+            "kind": "role_name",
+            "value": "textbox:",
+            "rationale": "accessible role+name, stable across markup changes"
+          },
+          {
+            "kind": "text",
+            "value": "",
+            "rationale": "fallback: visible text match"
+          }
+        ],
+        "scope_hint": null
+      },
+      "value": "12345",
+      "extract_into": null,
+      "checkpoint_locator": null,
+      "expected_text_contains": null,
+      "risk": "safe",
+      "rationale": "Enter member ID 12345 into the search box",
+      "timeout_ms": 5000,
+      "max_retries": 1
+    },
+    {
+      "step_id": "s2",
+      "action": "click",
+      "target": {
+        "description": "button 'Search'",
+        "candidates": [
+          {
+            "kind": "role_name",
+            "value": "button:Search",
+            "rationale": "accessible role+name, stable across markup changes"
+          },
+          {
+            "kind": "text",
+            "value": "Search",
+            "rationale": "fallback: visible text match"
+          }
+        ],
+        "scope_hint": null
+      },
+      "value": null,
+      "extract_into": null,
+      "checkpoint_locator": null,
+      "expected_text_contains": null,
+      "risk": "safe",
+      "rationale": "Search for member 12345",
+      "timeout_ms": 5000,
+      "max_retries": 1
+    },
+    {
+      "step_id": "s3",
+      "action": "click",
+      "target": {
+        "description": "link 'Open New Sub-Account'",
+        "candidates": [
+          {
+            "kind": "role_name",
+            "value": "link:Open New Sub-Account",
+            "rationale": "accessible role+name, stable across markup changes"
+          },
+          {
+            "kind": "text",
+            "value": "Open New Sub-Account",
+            "rationale": "fallback: visible text match"
+          }
+        ],
+        "scope_hint": null
+      },
+      "value": null,
+      "extract_into": null,
+      "checkpoint_locator": null,
+      "expected_text_contains": null,
+      "risk": "safe",
+      "rationale": "Navigate to the sub-account opening page for member 12345",
+      "timeout_ms": 5000,
+      "max_retries": 1
+    },
+    {
+      "step_id": "s4",
+      "action": "select",
+      "target": {
+        "description": "combobox ''",
+        "candidates": [
+          {
+            "kind": "role_name",
+            "value": "combobox:",
+            "rationale": "accessible role+name, stable across markup changes"
+          },
+          {
+            "kind": "text",
+            "value": "",
+            "rationale": "fallback: visible text match"
+          }
+        ],
+        "scope_hint": null
+      },
+      "value": "Youth Savings",
+      "extract_into": null,
+      "checkpoint_locator": null,
+      "expected_text_contains": null,
+      "risk": "safe",
+      "rationale": "Select 'Youth Savings' as the sub-account type",
+      "timeout_ms": 5000,
+      "max_retries": 1
+    },
+    {
+      "step_id": "s5",
+      "action": "fill",
+      "target": {
+        "description": "textbox ''",
+        "candidates": [
+          {
+            "kind": "role_name",
+            "value": "textbox:",
+            "rationale": "accessible role+name, stable across markup changes"
+          },
+          {
+            "kind": "text",
+            "value": "",
+            "rationale": "fallback: visible text match"
+          }
+        ],
+        "scope_hint": null
+      },
+      "value": "50",
+      "extract_into": null,
+      "checkpoint_locator": null,
+      "expected_text_contains": null,
+      "risk": "safe",
+      "rationale": "Enter the initial deposit amount of $50",
+      "timeout_ms": 5000,
+      "max_retries": 1
+    },
+    {
+      "step_id": "s6",
+      "action": "click",
+      "target": {
+        "description": "button 'Continue'",
+        "candidates": [
+          {
+            "kind": "role_name",
+            "value": "button:Continue",
+            "rationale": "accessible role+name, stable across markup changes"
+          },
+          {
+            "kind": "text",
+            "value": "Continue",
+            "rationale": "fallback: visible text match"
+          }
+        ],
+        "scope_hint": null
+      },
+      "value": null,
+      "extract_into": null,
+      "checkpoint_locator": null,
+      "expected_text_contains": null,
+      "risk": "safe",
+      "rationale": "Submit the form to proceed to the confirmation screen",
+      "timeout_ms": 5000,
+      "max_retries": 1
+    },
+    {
+      "step_id": "s7",
+      "action": "assert_checkpoint",
+      "target": null,
+      "value": null,
+      "extract_into": null,
+      "checkpoint_locator": {
+        "description": "heading 'Confirmation'",
+        "candidates": [
+          {
+            "kind": "role_name",
+            "value": "heading:Confirmation",
+            "rationale": "accessible role+name, stable across markup changes"
+          },
+          {
+            "kind": "text",
+            "value": "Confirmation",
+            "rationale": "fallback: visible text match"
+          }
+        ],
+        "scope_hint": null
+      },
+      "expected_text_contains": "Confirmation",
+      "risk": "safe",
+      "rationale": "The confirmation screen is displayed with a successful sub-account opening message, confirmation number, account type youth_savings, and initial deposit of $50. This proves the goal was achieved.",
+      "timeout_ms": 5000,
+      "max_retries": 1
+    }
+  ],
+  "checkpoint": {
+    "description": "heading 'Confirmation'",
+    "candidates": [
+      {
+        "kind": "role_name",
+        "value": "heading:Confirmation",
+        "rationale": "accessible role+name, stable across markup changes"
+      },
+      {
+        "kind": "text",
+        "value": "Confirmation",
+        "rationale": "fallback: visible text match"
+      }
+    ],
+    "scope_hint": null
+  },
+  "declared_outcomes": [],
+  "vendor_product": null,
+  "vendor_version": null,
+  "review_status": "draft"
+}

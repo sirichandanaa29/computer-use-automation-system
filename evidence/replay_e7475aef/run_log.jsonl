@@ -1,0 +1,16 @@
+{"ts": "2026-09-23T03:39:15.092161+00:00", "run_id": "e7475aef", "event": "replay_start", "artifact_id": "open_subaccount_discovered", "params_keys": ["member_id", "account_type", "deposit"]}
+{"ts": "2026-09-23T03:39:15.178418+00:00", "run_id": "e7475aef", "event": "step_start", "step_id": "s1", "action": "fill", "risk": "safe", "decision": "proceed"}
+{"ts": "2026-09-23T03:39:15.278874+00:00", "run_id": "e7475aef", "event": "step_ok", "step_id": "s1"}
+{"ts": "2026-09-23T03:39:15.280235+00:00", "run_id": "e7475aef", "event": "step_start", "step_id": "s2", "action": "click", "risk": "safe", "decision": "proceed"}
+{"ts": "2026-09-23T03:39:15.349291+00:00", "run_id": "e7475aef", "event": "step_ok", "step_id": "s2"}
+{"ts": "2026-09-23T03:39:15.352311+00:00", "run_id": "e7475aef", "event": "step_start", "step_id": "s3", "action": "click", "risk": "safe", "decision": "proceed"}
+{"ts": "2026-09-23T03:39:15.410618+00:00", "run_id": "e7475aef", "event": "step_ok", "step_id": "s3"}
+{"ts": "2026-09-23T03:39:15.410921+00:00", "run_id": "e7475aef", "event": "step_start", "step_id": "s4", "action": "select", "risk": "safe", "decision": "proceed"}
+{"ts": "2026-09-23T03:39:15.471042+00:00", "run_id": "e7475aef", "event": "step_ok", "step_id": "s4"}
+{"ts": "2026-09-23T03:39:15.473168+00:00", "run_id": "e7475aef", "event": "step_start", "step_id": "s5", "action": "fill", "risk": "safe", "decision": "proceed"}
+{"ts": "2026-09-23T03:39:15.518138+00:00", "run_id": "e7475aef", "event": "step_ok", "step_id": "s5"}
+{"ts": "2026-09-23T03:39:15.518476+00:00", "run_id": "e7475aef", "event": "step_start", "step_id": "s6", "action": "click", "risk": "safe", "decision": "proceed"}
+{"ts": "2026-09-23T03:39:15.586800+00:00", "run_id": "e7475aef", "event": "step_ok", "step_id": "s6"}
+{"ts": "2026-09-23T03:39:15.587059+00:00", "run_id": "e7475aef", "event": "step_start", "step_id": "s7", "action": "assert_checkpoint", "risk": "safe", "decision": "proceed"}
+{"ts": "2026-09-23T03:39:15.619240+00:00", "run_id": "e7475aef", "event": "step_ok", "step_id": "s7"}
+{"ts": "2026-09-23T03:39:15.626554+00:00", "run_id": "e7475aef", "event": "replay_success", "outputs_keys": []}

@@ -1,0 +1,232 @@
+{
+  "artifact_id": "open_subaccount_v1",
+  "name": "Open New Sub-Account",
+  "version": 1,
+  "description": "Looks up a member by ID and opens a new sub-account, reaching the confirmation screen.",
+  "discovery_goal": "look up member {member_id}, open a new sub-account of type {account_type} with an initial deposit of {deposit}, and reach the confirmation screen",
+  "target_app": "core_banking_console",
+  "target_entry_url": "http://localhost:5050/",
+  "vendor_product": "CoreBank Teller Console",
+  "vendor_version": "v3.2",
+  "review_status": "draft",
+  "inputs": [
+    {
+      "name": "member_id",
+      "type": "string",
+      "required": true,
+      "description": "Member ID to search for",
+      "sensitive": true
+    },
+    {
+      "name": "account_type",
+      "type": "string",
+      "required": true,
+      "description": "youth_savings | holiday_club"
+    },
+    {
+      "name": "deposit",
+      "type": "string",
+      "required": true,
+      "description": "Initial deposit amount, minimum $25"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "confirmation_number",
+      "type": "string",
+      "description": "Confirmation number for the opened sub-account"
+    }
+  ],
+  "declared_outcomes": [
+    {
+      "name": "member_not_found",
+      "kind": "business_outcome",
+      "detect_text_contains": "No record found for member ID",
+      "description": "The searched member ID does not exist in the system."
+    },
+    {
+      "name": "validation_error",
+      "kind": "business_outcome",
+      "detect_text_contains": "Please correct the following",
+      "description": "The sub-account form was submitted with missing/invalid fields (e.g. deposit below $25 minimum)."
+    },
+    {
+      "name": "permission_denied",
+      "kind": "business_outcome",
+      "detect_text_contains": "You do not have permission",
+      "description": "The operator lacks permission to open sub-accounts for this member's segment."
+    },
+    {
+      "name": "session_expired",
+      "kind": "business_outcome",
+      "detect_text_contains": "Your session has timed out",
+      "description": "The session expired mid-flow and requires re-authentication (out of scope for unattended retry)."
+    }
+  ],
+  "steps": [
+    {
+      "step_id": "s1",
+      "action": "navigate",
+      "value": "http://localhost:5050/",
+      "risk": "safe",
+      "rationale": "Start at the member search screen.",
+      "timeout_ms": 5000,
+      "max_retries": 1
+    },
+    {
+      "step_id": "s2",
+      "action": "fill",
+      "target": {
+        "description": "Member ID search input",
+        "candidates": [
+          {
+            "kind": "css_fallback",
+            "value": "input[name='member_id']",
+            "rationale": "Form field 'name' attributes are far more stable than visual layout in legacy server-rendered apps; this app has no test IDs or labels to prefer instead."
+          },
+          {
+            "kind": "role_name",
+            "value": "textbox:",
+            "rationale": "Fallback: the only textbox on the search screen."
+          }
+        ]
+      },
+      "value": "${member_id}",
+      "risk": "safe",
+      "rationale": "Enter the member ID supplied by the caller.",
+      "timeout_ms": 5000,
+      "max_retries": 1
+    },
+    {
+      "step_id": "s3",
+      "action": "click",
+      "target": {
+        "description": "Search submit button",
+        "candidates": [
+          {
+            "kind": "role_name",
+            "value": "button:Search",
+            "rationale": "input[type=submit] maps to accessible role 'button' with name from its value attribute; robust to markup/CSS changes."
+          },
+          {
+            "kind": "css_fallback",
+            "value": "input[type='submit']",
+            "rationale": "Fallback: only submit control on this form."
+          }
+        ]
+      },
+      "risk": "safe",
+      "rationale": "Submit the search.",
+      "timeout_ms": 5000,
+      "max_retries": 1
+    },
+    {
+      "step_id": "s4",
+      "action": "click",
+      "target": {
+        "description": "Open New Sub-Account link",
+        "candidates": [
+          {
+            "kind": "role_name",
+            "value": "link:Open New Sub-Account",
+            "rationale": "Accessible role+visible text of the link; stable across styling changes."
+          }
+        ]
+      },
+      "risk": "safe",
+      "rationale": "Navigate to the sub-account opening form for this member.",
+      "timeout_ms": 5000,
+      "max_retries": 1
+    },
+    {
+      "step_id": "s5",
+      "action": "select",
+      "target": {
+        "description": "Sub-account type dropdown",
+        "candidates": [
+          {
+            "kind": "css_fallback",
+            "value": "select[name='account_type']",
+            "rationale": "Form field name attribute; the select has no accessible label in this legacy markup."
+          }
+        ]
+      },
+      "value": "${account_type}",
+      "risk": "safe",
+      "rationale": "Choose the sub-account type supplied by the caller.",
+      "timeout_ms": 5000,
+      "max_retries": 1
+    },
+    {
+      "step_id": "s6",
+      "action": "fill",
+      "target": {
+        "description": "Initial deposit input",
+        "candidates": [
+          {
+            "kind": "css_fallback",
+            "value": "input[name='deposit']",
+            "rationale": "Form field name attribute."
+          }
+        ]
+      },
+      "value": "${deposit}",
+      "risk": "safe",
+      "rationale": "Enter the initial deposit amount supplied by the caller.",
+      "timeout_ms": 5000,
+      "max_retries": 1
+    },
+    {
+      "step_id": "s7",
+      "action": "click",
+      "target": {
+        "description": "Continue submit button",
+        "candidates": [
+          {
+            "kind": "role_name",
+            "value": "button:Continue",
+            "rationale": "Accessible role+name of the submit control."
+          }
+        ]
+      },
+      "risk": "irreversible",
+      "rationale": "This submits the sub-account opening \u2014 a real, effectively irreversible action in production (would require a reversal transaction, not a simple undo). Flagged irreversible so unattended replay requires pre-approval per policy.",
+      "timeout_ms": 5000,
+      "max_retries": 1
+    },
+    {
+      "step_id": "s8",
+      "action": "extract",
+      "target": {
+        "description": "Confirmation number table cell",
+        "candidates": [
+          {
+            "kind": "text",
+            "value": "CNF-",
+            "rationale": "Confirmation numbers are generated with a stable 'CNF-' prefix; matched via visible text."
+          },
+          {
+            "kind": "css_fallback",
+            "value": "table tr:nth-child(1) td:nth-child(2)",
+            "rationale": "Structural fallback: first data row, second column of the confirmation table."
+          }
+        ]
+      },
+      "extract_into": "confirmation_number",
+      "risk": "safe",
+      "rationale": "Capture the confirmation number to return to the calling agent.",
+      "timeout_ms": 5000,
+      "max_retries": 1
+    }
+  ],
+  "checkpoint": {
+    "description": "Confirmation heading",
+    "candidates": [
+      {
+        "kind": "role_name",
+        "value": "heading:Confirmation",
+        "rationale": "The confirmation screen's heading is the definitive proof the flow completed."
+      }
+    ]
+  }
+}
